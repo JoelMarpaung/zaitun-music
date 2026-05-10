@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+      name="description"
+      content="Zaitun Chords finds chords from uploaded audio, displays a synced timeline, and lets players transpose or simplify the progression."
+    >
+    <title>Zaitun Chords - Chord Finder</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Zaitun Chords home">
+        <span class="brand-mark" aria-hidden="true">Z</span>
+        <span>
+          <strong>Zaitun Chords</strong>
+          <small>Audio to playable chords</small>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="#finder">Finder</a>
+        <a href="#results">Timeline</a>
+        <a href="#how-it-works">How it works</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="finder-shell" id="finder" aria-labelledby="finder-title">
+        <div class="finder-copy">
+          <p class="eyebrow">Chord finder from audio</p>
+          <h1 id="finder-title">Find the chords in a song and play along.</h1>
+          <p>
+            Upload an audio file or paste a YouTube link. The Zaitun chord system detects
+            chords and prepares an embedded play-along timeline.
+          </p>
+          <div class="status-strip" aria-label="Supported limits">
+            <span>MP3</span>
+            <span>WAV</span>
+            <span>M4A</span>
+            <span>OGG</span>
+            <span>FLAC</span>
+            <span>30 MB max</span>
+          </div>
+        </div>
+
+        <form class="finder-panel" id="finder-form">
+          <div class="finder-lock" id="finder-lock" hidden>
+            <span>Current song is loaded</span>
+            <strong id="locked-source">Ready to play</strong>
+            <p>Click Find new one before choosing another file or link.</p>
+            <button class="secondary-action lock-reset" type="button" id="locked-new-song">Find new one</button>
+          </div>
+
+          <div class="input-stack">
+            <label for="file-input">Drop an audio file</label>
+            <button class="upload-zone" id="upload-zone" type="button">
+              <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M12 3v12m0-12 4 4m-4-4-4 4M4 15v3a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-3"></path>
+              </svg>
+              <span class="upload-main" id="upload-main">Drag audio here, or browse</span>
+              <span class="upload-sub" id="upload-sub">The upload stays in your browser.</span>
+            </button>
+            <input
+              type="file"
+              id="file-input"
+              accept=".mp3,.wav,.m4a,.ogg,.flac,.aac,.webm,.wma,audio/*"
+              hidden
+            >
+            <div class="selected-file" id="selected-file" hidden>
+              <span id="selected-file-name"></span>
+              <button type="button" id="remove-file" aria-label="Remove selected file">Remove</button>
+            </div>
+          </div>
+
+          <div class="divider"><span>or</span></div>
+
+          <div class="input-stack">
+            <label for="youtube-url">Paste a YouTube link</label>
+            <div class="url-field">
+              <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M21.6 7.2a3 3 0 0 0-2.1-2.1C17.7 4.6 12 4.6 12 4.6s-5.7 0-7.5.5a3 3 0 0 0-2.1 2.1C2 9 2 12 2 12s0 3 .4 4.8a3 3 0 0 0 2.1 2.1c1.8.5 7.5.5 7.5.5s5.7 0 7.5-.5a3 3 0 0 0 2.1-2.1C22 15 22 12 22 12s0-3-.4-4.8Z"></path>
+                <path d="m10 15 5-3-5-3v6Z"></path>
+              </svg>
+              <input id="youtube-url" type="url" placeholder="https://youtube.com/watch?v=..." autocomplete="off">
+              <button type="button" id="clear-url" aria-label="Clear YouTube URL" hidden>Clear</button>
+            </div>
+          </div>
+
+          <button class="primary-action" id="analyze-button" type="submit">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M9 18V5l12-2v13"></path>
+              <circle cx="6" cy="18" r="3"></circle>
+              <circle cx="18" cy="16" r="3"></circle>
+            </svg>
+            Find chords
+          </button>
+        </form>
+      </section>
+
+      <section class="progress-section" id="progress-section" hidden aria-live="polite">
+        <div class="progress-steps" aria-label="Analysis progress">
+          <div class="progress-step" id="step-source">
+            <span class="step-dot"></span>
+            <span id="step-source-label">Loading source...</span>
+          </div>
+          <div class="progress-step" id="step-analyze">
+            <span class="step-dot"></span>
+            <span>Our system is processing the chords...</span>
+          </div>
+          <div class="progress-step" id="step-ready">
+            <span class="step-dot"></span>
+            <span>Chords ready. Let's play.</span>
+          </div>
+        </div>
+        <div class="progress-labels">
+          <span id="progress-title">Listening to the song</span>
+          <span id="progress-percent">0%</span>
+        </div>
+        <div class="progress-track" aria-hidden="true">
+          <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        <p id="progress-detail">Preparing audio...</p>
+      </section>
+
+      <section class="error-section" id="error-section" hidden>
+        <div>
+          <h2>That did not work yet</h2>
+          <p id="error-message"></p>
+        </div>
+        <button class="secondary-action" type="button" id="error-reset">Find new one</button>
+      </section>
+
+      <section class="results-section" id="results" hidden aria-labelledby="results-title">
+        <div class="results-header">
+          <div>
+            <p class="eyebrow">Detected progression</p>
+            <h2 id="results-title">Ready to play</h2>
+            <p id="analysis-summary">Chords will appear here after analysis.</p>
+          </div>
+          <div class="results-side">
+            <button class="secondary-action" type="button" id="new-song-top">Find new one</button>
+            <div class="summary-metrics" aria-label="Analysis summary">
+              <div>
+                <strong id="metric-key">-</strong>
+                <span id="metric-key-label">Detected key</span>
+              </div>
+              <div>
+                <strong id="metric-count">-</strong>
+                <span>Chords</span>
+              </div>
+              <div>
+                <strong id="metric-duration">-</strong>
+                <span>Length</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="player-row">
+          <div class="player-surface">
+            <audio id="audio-player" preload="metadata"></audio>
+            <div class="youtube-frame" id="youtube-frame" hidden></div>
+            <canvas id="wave-canvas" width="900" height="220" aria-label="Audio waveform"></canvas>
+          </div>
+
+          <div class="now-panel">
+            <span>Now playing</span>
+            <strong id="current-chord">-</strong>
+            <p id="current-time">0:00</p>
+          </div>
+        </div>
+
+        <div class="transport">
+          <button class="icon-button" id="play-button" type="button" aria-label="Play or pause">
+            <svg id="play-icon" aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7-11-7Z"></path>
+            </svg>
+            <svg id="pause-icon" aria-hidden="true" viewBox="0 0 24 24" hidden>
+              <path d="M7 5h4v14H7V5Zm6 0h4v14h-4V5Z"></path>
+            </svg>
+          </button>
+          <input id="seek" type="range" min="0" max="1000" value="0" aria-label="Seek through song">
+          <span id="duration-label">0:00</span>
+        </div>
+
+        <div class="toolbar" aria-label="Chord controls">
+          <div class="segmented" role="group" aria-label="Chord mode">
+            <button type="button" id="mode-original" class="active">Original</button>
+            <button type="button" id="mode-beginner">Beginner</button>
+          </div>
+
+          <div class="transpose-controls" role="group" aria-label="Transpose controls">
+            <button class="square-button" type="button" id="transpose-down" aria-label="Transpose down">-</button>
+            <span>Transpose <strong id="transpose-value">0</strong></span>
+            <button class="square-button" type="button" id="transpose-up" aria-label="Transpose up">+</button>
+            <button class="small-button" type="button" id="transpose-reset">Reset</button>
+          </div>
+        </div>
+
+        <div class="beginner-note" id="beginner-note" hidden>
+          <span id="capo-display">No capo</span>
+          <span id="difficulty-display">Easy</span>
+        </div>
+
+        <div class="timeline-wrap" aria-label="Chord timeline">
+          <div class="timeline" id="timeline"></div>
+        </div>
+
+        <div class="actions-row">
+          <button class="secondary-action" type="button" id="new-song">Find new one</button>
+          <button class="secondary-action" type="button" id="copy-chords">Copy chords</button>
+        </div>
+      </section>
+
+      <section class="info-band" id="how-it-works" aria-labelledby="how-title">
+        <h2 id="how-title">How it works</h2>
+        <div class="info-grid">
+          <article>
+            <span>1</span>
+            <h3>Load audio</h3>
+            <p>Drop an audio file or paste a YouTube link. Files are checked against the 30 MB and 10 minute limits.</p>
+          </article>
+          <article>
+            <span>2</span>
+            <h3>Estimate chords</h3>
+            <p>The Zaitun chord system analyzes the audio and returns timestamped chord events.</p>
+          </article>
+          <article>
+            <span>3</span>
+            <h3>Play along</h3>
+            <p>The timeline syncs with playback, supports transposition, and offers beginner simplification.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="details-band" aria-labelledby="details-title">
+        <div>
+          <h2 id="details-title">Powered by our chord system</h2>
+          <p>
+            Uploaded files and YouTube links are sent to the Zaitun chord system. The frontend expects
+            chord events as JSON.
+          </p>
+        </div>
+        <pre><code>{
+  "key": "G",
+  "chords": [
+    { "time": 0, "duration": 2.4, "chord": "G" },
+    { "time": 2.4, "duration": 2.4, "chord": "Em" }
+  ]
+}</code></pre>
+      </section>
+    </main>
+  </body>
+</html>

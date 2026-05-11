@@ -403,7 +403,10 @@ function renderDiatonicPalette() {
       <span class="diatonic-degree">${escapeHtml(chord.degree)}</span>
       <span class="diatonic-name">${escapeHtml(chord.displayName)}</span>
       <span class="diatonic-notes">${chord.notes.map(escapeHtml).join(" ")}</span>
-      <div class="diatonic-diagram">${renderGuitarSVG(getGuitarShape(chord.name), chord.displayName)}</div>
+      <div class="diatonic-diagrams">
+        <div class="diatonic-diagram">${renderGuitarSVG(getGuitarShape(chord.name), chord.displayName)}</div>
+        <div class="diatonic-diagram diatonic-diagram-keyboard">${renderKeyboardSVG(chord.notes, 116, 56, chord.displayName)}</div>
+      </div>
     </button>
   `).join("");
   container.querySelectorAll("button").forEach((button) => {
@@ -583,7 +586,7 @@ function renderChordDiagrams(chordName) {
   const keyboard = document.querySelector("#diagram-keyboard");
   const notes = getChordNotes(chordName);
   guitar.innerHTML = renderGuitarSVG(getGuitarShape(chordName), readableChord(chordName));
-  keyboard.innerHTML = renderKeyboardSVG(notes);
+  keyboard.innerHTML = renderKeyboardSVG(notes, 228, 112, readableChord(chordName));
 }
 
 function getChordNotes(chordName) {
@@ -671,7 +674,7 @@ function renderGuitarSVG(shape, label) {
   return svg;
 }
 
-function renderKeyboardSVG(activeKeys) {
+function renderKeyboardSVG(activeKeys, width = 228, height = 112, label = "") {
   const white = ["C", "D", "E", "F", "G", "A", "B"];
   const black = [
     { note: "C#", left: 24 },
@@ -680,7 +683,8 @@ function renderKeyboardSVG(activeKeys) {
     { note: "G#", left: 144 },
     { note: "A#", left: 174 },
   ];
-  let svg = '<svg class="keyboard-svg" width="228" height="112" viewBox="0 0 228 112" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Keyboard chord diagram">';
+  const aria = escapeHtml(label || "Keyboard chord diagram");
+  let svg = `<svg class="keyboard-svg" width="${width}" height="${height}" viewBox="0 0 228 112" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${aria}">`;
   white.forEach((note, index) => {
     const active = activeKeys.includes(note);
     svg += `<rect x="${10 + index * 30}" y="12" width="28" height="84" rx="4" fill="${active ? "#37c8a1" : "#f2f5f2"}" stroke="#101417"/>`;

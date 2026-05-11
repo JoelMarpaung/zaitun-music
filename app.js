@@ -51,6 +51,7 @@ function init() {
   cacheElements();
   bindEvents();
   warmUpServer();
+  updateAnalyzeButtonState();
   drawIdleWave();
 }
 
@@ -173,6 +174,7 @@ function setSelectedFile(file) {
   els.selectedFile.hidden = false;
   els.uploadZone.hidden = true;
   clearYouTubeUrl();
+  updateAnalyzeButtonState();
 }
 
 function clearSelectedFile() {
@@ -180,17 +182,28 @@ function clearSelectedFile() {
   els.fileInput.value = "";
   els.selectedFile.hidden = true;
   els.uploadZone.hidden = false;
+  updateAnalyzeButtonState();
 }
 
 function handleUrlInput() {
-  els.clearUrl.hidden = !els.youtubeUrl.value.trim();
+  const hasUrl = Boolean(els.youtubeUrl.value.trim());
+  els.clearUrl.hidden = !hasUrl;
   if (extractYouTubeId(els.youtubeUrl.value)) clearSelectedFile();
+  updateAnalyzeButtonState();
 }
 
 function clearYouTubeUrl() {
   state.youtubeId = "";
   els.youtubeUrl.value = "";
   els.clearUrl.hidden = true;
+  updateAnalyzeButtonState();
+}
+
+function updateAnalyzeButtonState() {
+  if (state.locked) return;
+  const hasFile = Boolean(state.selectedFile);
+  const hasValidYouTubeUrl = Boolean(extractYouTubeId(els.youtubeUrl.value));
+  els.analyzeButton.disabled = !(hasFile || hasValidYouTubeUrl);
 }
 
 function getSupabase() {
@@ -1076,6 +1089,7 @@ function unlockFinder() {
     </svg>
     Find chords
   `;
+  updateAnalyzeButtonState();
 }
 
 function setInputControlsDisabled(disabled) {

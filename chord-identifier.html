@@ -11,42 +11,38 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
       rel="stylesheet"
     >
     <link rel="stylesheet" href="styles.css">
     <script src="tools.js" defer></script>
   </head>
   <body class="swaram-tool-page">
-    <header>
-      <div class="container">
-        <div class="header-top">
-          <div class="header-content">
-            <h1><a href="index.html">Zaitun</a></h1>
-            <p class="tagline">Find chords for any song with the Zaitun chord system <span class="header-badge">Music Tools</span></p>
-          </div>
-          <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false" type="button">
-            <span class="hamburger-line"></span>
-            <span class="hamburger-line"></span>
-            <span class="hamburger-line"></span>
-          </button>
-        </div>
-        <nav class="mobile-nav" aria-label="Main navigation">
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="index.html#finder">Chord Finder</a></li>
-            <li><a href="chord-identifier.html" aria-current="page">Chord Identifier</a></li>
-            <li><a href="chord-progressions.html">Progressions</a></li>
-          </ul>
-        </nav>
-      </div>
+    <header class="site-header">
+      <a class="brand" href="index.html#top" aria-label="Zaitun Chords home">
+        <span class="brand-mark" aria-hidden="true">Z</span>
+        <span>
+          <strong>Zaitun Chords</strong>
+          <small>Audio to playable chords</small>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="index.html#finder">Finder</a>
+        <a href="index.html#results">Timeline</a>
+        <a href="chord-identifier.html" aria-current="page">Identifier</a>
+        <a href="chord-progressions.html">Progressions</a>
+        <a href="index.html#how-it-works">How it works</a>
+      </nav>
     </header>
 
-    <main>
-      <section class="generate-header">
+    <main id="top">
+      <section class="generate-header tool-intro">
         <div class="container">
-          <h2>What Chord Am I Playing?</h2>
-          <p>Play a chord on your guitar or piano - we'll identify it instantly.</p>
+          <p class="eyebrow">Chord identifier</p>
+          <h2>Name chords from your microphone</h2>
+          <p>
+            Play guitar or piano and see the chord name, notes, and diagrams. Analysis runs in your browser—nothing is uploaded.
+          </p>
         </div>
       </section>
 
@@ -101,7 +97,7 @@
 
             <div class="identifier-history" id="history-area" hidden>
               <div class="history-header">
-                <h4>Chord Progression</h4>
+                <h4>Recent chords</h4>
                 <div class="history-actions">
                   <button type="button" class="history-action-btn" id="copy-progression-btn" title="Copy progression" aria-label="Copy progression">
                     <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
@@ -124,7 +120,7 @@
 
       <section class="how-it-works-section">
         <div class="container">
-          <h2>How the Chord Identifier Works</h2>
+          <h2>How it works</h2>
           <div class="features-grid">
             <article class="feature-card">
               <div class="feature-icon">
@@ -133,8 +129,8 @@
                   <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
                 </svg>
               </div>
-              <h3>Play a Chord</h3>
-              <p>Tap the microphone button and play a chord on your guitar, piano, or ukulele.</p>
+              <h3>Listen</h3>
+              <p>Tap the mic and play one clear chord on guitar, piano, or ukulele.</p>
             </article>
             <article class="feature-card">
               <div class="feature-icon">
@@ -143,8 +139,8 @@
                   <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
               </div>
-              <h3>Instant Detection</h3>
-              <p>The browser analyzes frequencies in real time and matches them to chord patterns.</p>
+              <h3>Detect</h3>
+              <p>Your browser picks out pitches and matches them to chord shapes in real time.</p>
             </article>
             <article class="feature-card">
               <div class="feature-icon">
@@ -154,8 +150,8 @@
                   <circle cx="18" cy="16" r="3"></circle>
                 </svg>
               </div>
-              <h3>See Name &amp; Diagrams</h3>
-              <p>Get the chord name, notes, and guitar or keyboard diagrams in the same panel.</p>
+              <h3>Read &amp; play</h3>
+              <p>See the name, notes, and guitar or keyboard diagrams together.</p>
             </article>
           </div>
         </div>
@@ -163,7 +159,7 @@
 
       <section class="how-it-works-section">
         <div class="container">
-          <h2>Why Use Our Chord Identifier?</h2>
+          <h2>Why use it</h2>
           <div class="features-grid">
             <article class="feature-card">
               <div class="feature-icon">
@@ -171,8 +167,8 @@
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                 </svg>
               </div>
-              <h3>100% Private</h3>
-              <p>Microphone analysis runs locally in the browser, so practice audio stays on your device.</p>
+              <h3>Private</h3>
+              <p>Processing stays in your browser—your playing does not leave your device.</p>
             </article>
             <article class="feature-card">
               <div class="feature-icon">
@@ -180,8 +176,8 @@
                   <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
                 </svg>
               </div>
-              <h3>Real-Time Results</h3>
-              <p>Play a clean chord and see the detected name, notes, and confidence while you practice.</p>
+              <h3>Fast feedback</h3>
+              <p>Chord name, notes, and confidence update as you hold each chord.</p>
             </article>
             <article class="feature-card">
               <div class="feature-icon">
@@ -191,8 +187,8 @@
                   <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
                 </svg>
               </div>
-              <h3>Any Instrument</h3>
-              <p>Works best with clear pitched chords from guitar, piano, ukulele, keyboard, or mandolin.</p>
+              <h3>Many instruments</h3>
+              <p>Best with clear chords from guitar, keys, ukulele, or similar pitched instruments.</p>
             </article>
           </div>
         </div>
@@ -200,17 +196,17 @@
 
       <section class="about-section">
         <div class="container">
-          <h2>Want Chords for a Full Song?</h2>
+          <h2>Full songs</h2>
           <div class="about-content">
-            <p>Upload any audio file or paste a YouTube link and the Zaitun chord system will prepare a playable chord timeline for the entire song.</p>
-            <a href="index.html#finder" class="btn">Try Chord Finder</a>
+            <p>Upload audio or paste a YouTube link on the finder page—the Zaitun chord system builds a synced chord timeline you can play along with.</p>
+            <a href="index.html#finder" class="btn">Open chord finder</a>
           </div>
         </div>
       </section>
 
       <section class="faq-section">
         <div class="container">
-          <h2>Frequently Asked Questions</h2>
+          <h2>Common questions</h2>
           <div class="faq-grid">
             <div class="faq-item">
               <h3>How does the chord identifier work?</h3>
@@ -233,27 +229,24 @@
       </section>
     </main>
 
-    <footer>
-      <div class="container">
-        <div class="footer-content">
-          <div class="footer-logo">
-            <h3>Zaitun</h3>
-            <p>Find chords for any song with the Zaitun chord system.</p>
-          </div>
-          <div class="footer-links">
-            <h4>Quick Links</h4>
-            <ul>
-              <li><a href="index.html">Home</a></li>
-              <li><a href="index.html#finder">Chord Finder</a></li>
-              <li><a href="chord-identifier.html">Chord Identifier</a></li>
-              <li><a href="chord-progressions.html">Progressions</a></li>
-            </ul>
+    <footer class="site-footer">
+      <div class="site-footer-inner">
+        <div class="site-footer-brand">
+          <span class="brand-mark brand-mark-sm" aria-hidden="true">Z</span>
+          <div>
+            <strong class="site-footer-title">Zaitun Chords</strong>
+            <p class="site-footer-tagline">Find chords for any song with the Zaitun chord system.</p>
           </div>
         </div>
-        <div class="footer-bottom">
-          <p>&copy; 2026 Zaitun. All Rights Reserved.</p>
-        </div>
+        <nav class="site-footer-nav" aria-label="Footer">
+          <a href="index.html#finder">Finder</a>
+          <a href="index.html#results">Timeline</a>
+          <a href="chord-identifier.html">Identifier</a>
+          <a href="chord-progressions.html">Progressions</a>
+          <a href="index.html#how-it-works">How it works</a>
+        </nav>
       </div>
+      <p class="site-footer-legal">&copy; 2026 Zaitun</p>
     </footer>
   </body>
 </html>

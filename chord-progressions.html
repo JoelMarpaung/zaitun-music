@@ -11,68 +11,62 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
       rel="stylesheet"
     >
     <link rel="stylesheet" href="styles.css">
     <script src="tools.js" defer></script>
   </head>
   <body class="swaram-tool-page">
-    <header>
-      <div class="container">
-        <div class="header-top">
-          <div class="header-content">
-            <h1><a href="index.html">Zaitun</a></h1>
-            <p class="tagline">Find chords for any song with the Zaitun chord system <span class="header-badge">Music Tools</span></p>
-          </div>
-          <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false" type="button">
-            <span class="hamburger-line"></span>
-            <span class="hamburger-line"></span>
-            <span class="hamburger-line"></span>
-          </button>
-        </div>
-        <nav class="mobile-nav" aria-label="Main navigation">
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="index.html#finder">Chord Finder</a></li>
-            <li><a href="chord-identifier.html">Chord Identifier</a></li>
-            <li><a href="chord-progressions.html" aria-current="page">Progressions</a></li>
-          </ul>
-        </nav>
-      </div>
+    <header class="site-header">
+      <a class="brand" href="index.html#top" aria-label="Zaitun Chords home">
+        <span class="brand-mark" aria-hidden="true">Z</span>
+        <span>
+          <strong>Zaitun Chords</strong>
+          <small>Audio to playable chords</small>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="index.html#finder">Finder</a>
+        <a href="index.html#results">Timeline</a>
+        <a href="chord-identifier.html">Identifier</a>
+        <a href="chord-progressions.html" aria-current="page">Progressions</a>
+        <a href="index.html#how-it-works">How it works</a>
+      </nav>
     </header>
 
-    <main>
-      <section class="prog-hero">
+    <main id="top">
+      <section class="prog-hero tool-intro">
         <div class="container">
-          <h2>Chord Progression Builder</h2>
-          <p>Pick a key, see which chords fit, and build your progression.</p>
+          <p class="eyebrow">Progression builder</p>
+          <h2>Build progressions in any key</h2>
+          <p>Pick major or minor, add chords from the scale or from presets, then listen or copy the sequence.</p>
           <div class="key-selector-wrap">
-            <label for="key-selector">Select Key:</label>
-            <select id="key-selector" class="key-selector"></select>
+            <label for="key-selector">Key</label>
+            <select id="key-selector" class="key-selector" aria-label="Key and mode"></select>
           </div>
         </div>
       </section>
 
       <section class="prog-palette-section">
         <div class="container">
-          <h3>Diatonic Chords</h3>
-          <p class="section-hint">Click a chord to add it to your progression. Each card shows guitar and piano diagrams.</p>
+          <h3>Scale chords</h3>
+          <p class="section-hint">Tap a chord to add it to your line. Cards show guitar and keyboard diagrams.</p>
           <div id="diatonic-palette" class="diatonic-grid"></div>
         </div>
       </section>
 
       <section class="prog-presets-section">
         <div class="container">
-          <h3>Common Progressions</h3>
+          <h3>Presets</h3>
           <div id="preset-buttons" class="preset-strip"></div>
         </div>
       </section>
 
       <section class="prog-timeline-section">
         <div class="container">
-          <h3>Your Progression</h3>
-          <p id="prog-empty" class="section-hint">Click chords above or pick a preset to start building.</p>
+          <h3>Your line</h3>
+          <p id="prog-empty" class="section-hint">Add chords from the grid or load a preset to begin.</p>
           <div id="progression-timeline" class="progression-timeline"></div>
           <div id="progression-controls" class="progression-controls" hidden>
             <div class="bpm-control">
@@ -91,22 +85,22 @@
 
       <section class="prog-how-section">
         <div class="container">
-          <h2>How It Works</h2>
+          <h2>How it works</h2>
           <div class="how-grid">
             <div class="how-step">
               <div class="step-number">1</div>
-              <h3>Choose a Key</h3>
-              <p>Select any major or minor key from the dropdown. You'll see all seven diatonic chords that naturally fit together.</p>
+              <h3>Set the key</h3>
+              <p>Choose major or minor—the seven diatonic chords for that key appear above.</p>
             </div>
             <div class="how-step">
               <div class="step-number">2</div>
-              <h3>Build Your Progression</h3>
-              <p>Click chords to add them to your progression, or pick a common preset like the classic I-V-vi-IV pop pattern.</p>
+              <h3>Stack chords</h3>
+              <p>Tap chords to build your line, or start from a preset such as I–V–vi–IV.</p>
             </div>
             <div class="how-step">
               <div class="step-number">3</div>
-              <h3>Listen &amp; Share</h3>
-              <p>Hit Play to hear your progression with adjustable BPM. Copy the chord sequence for bandmates or writing notes.</p>
+              <h3>Hear or copy</h3>
+              <p>Play at any BPM, or copy the progression text for practice or songwriting.</p>
             </div>
           </div>
         </div>
@@ -114,7 +108,7 @@
 
       <section class="prog-faq-section">
         <div class="container">
-          <h2>Frequently Asked Questions</h2>
+          <h2>Common questions</h2>
           <div class="faq-grid">
             <div class="faq-item">
               <h3>What is a chord progression?</h3>
@@ -139,35 +133,32 @@
       <section class="prog-cta-section">
         <div class="container">
           <div class="cta-card">
-            <h3>Hear Real Chords from Any Song</h3>
-            <p>Upload an audio file or paste a YouTube link and the Zaitun chord system will detect the chords for your song.</p>
-            <a href="index.html#finder" class="btn btn-primary btn-lg">Try Chord Finder</a>
+            <h3>Chords from recordings</h3>
+            <p>Upload a track or paste a YouTube link—the Zaitun chord system lays out chords on a timeline you can follow.</p>
+            <a href="index.html#finder" class="btn btn-primary btn-lg">Open chord finder</a>
           </div>
         </div>
       </section>
     </main>
 
-    <footer>
-      <div class="container">
-        <div class="footer-content">
-          <div class="footer-logo">
-            <h3>Zaitun</h3>
-            <p>Find chords for any song with the Zaitun chord system.</p>
-          </div>
-          <div class="footer-links">
-            <h4>Quick Links</h4>
-            <ul>
-              <li><a href="index.html">Home</a></li>
-              <li><a href="index.html#finder">Chord Finder</a></li>
-              <li><a href="chord-identifier.html">Chord Identifier</a></li>
-              <li><a href="chord-progressions.html">Progressions</a></li>
-            </ul>
+    <footer class="site-footer">
+      <div class="site-footer-inner">
+        <div class="site-footer-brand">
+          <span class="brand-mark brand-mark-sm" aria-hidden="true">Z</span>
+          <div>
+            <strong class="site-footer-title">Zaitun Chords</strong>
+            <p class="site-footer-tagline">Find chords for any song with the Zaitun chord system.</p>
           </div>
         </div>
-        <div class="footer-bottom">
-          <p>&copy; 2026 Zaitun. All Rights Reserved.</p>
-        </div>
+        <nav class="site-footer-nav" aria-label="Footer">
+          <a href="index.html#finder">Finder</a>
+          <a href="index.html#results">Timeline</a>
+          <a href="chord-identifier.html">Identifier</a>
+          <a href="chord-progressions.html">Progressions</a>
+          <a href="index.html#how-it-works">How it works</a>
+        </nav>
       </div>
+      <p class="site-footer-legal">&copy; 2026 Zaitun</p>
     </footer>
   </body>
 </html>

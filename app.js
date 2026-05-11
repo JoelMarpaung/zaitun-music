@@ -963,7 +963,7 @@ function drawIdleWave() {
   const height = canvas.height;
   ctx.clearRect(0, 0, width, height);
   paintCanvasBackground(ctx, width, height);
-  ctx.strokeStyle = "rgba(55, 200, 161, 0.72)";
+  ctx.strokeStyle = "rgba(34, 211, 238, 0.72)";
   ctx.lineWidth = 3;
   ctx.beginPath();
   for (let x = 0; x < width; x += 1) {
@@ -988,7 +988,7 @@ function drawWaveform(samples, sampleRate) {
   ctx.clearRect(0, 0, width, height);
   paintCanvasBackground(ctx, width, height);
 
-  ctx.strokeStyle = "rgba(55, 200, 161, 0.9)";
+  ctx.strokeStyle = "rgba(34, 211, 238, 0.9)";
   ctx.lineWidth = 2;
   ctx.beginPath();
 

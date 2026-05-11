@@ -3,6 +3,12 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+      rel="stylesheet"
+    >
     <meta
       name="description"
       content="Zaitun Chords finds chords from uploaded audio, displays a synced timeline, and lets players transpose or simplify the progression."
@@ -33,11 +39,11 @@
     <main id="top">
       <section class="finder-shell" id="finder" aria-labelledby="finder-title">
         <div class="finder-copy">
-          <p class="eyebrow">Chord finder from audio</p>
-          <h1 id="finder-title">Find the chords in a song and play along.</h1>
+          <p class="eyebrow">From a file or YouTube</p>
+          <h1 id="finder-title">Hear the chords. Play along.</h1>
           <p>
-            Upload an audio file or paste a YouTube link. The Zaitun chord system detects
-            chords and prepares an embedded play-along timeline.
+            Drop a track or paste a link. The Zaitun chord system lays chords on a timeline you
+            can follow with the built-in player.
           </p>
           <div class="status-strip" aria-label="Supported limits">
             <span>MP3</span>
@@ -220,18 +226,18 @@
         <div class="info-grid">
           <article>
             <span>1</span>
-            <h3>Load audio</h3>
-            <p>Drop an audio file or paste a YouTube link. Files are checked against the 30 MB and 10 minute limits.</p>
+            <h3>Add a source</h3>
+            <p>Upload an audio file or paste a YouTube URL. We keep the usual limits—30 MB and about ten minutes.</p>
           </article>
           <article>
             <span>2</span>
-            <h3>Estimate chords</h3>
-            <p>The Zaitun chord system analyzes the audio and returns timestamped chord events.</p>
+            <h3>Get chord regions</h3>
+            <p>The Zaitun chord system reads your audio and returns chords with start times and durations.</p>
           </article>
           <article>
             <span>3</span>
             <h3>Play along</h3>
-            <p>The timeline syncs with playback, supports transposition, and offers beginner simplification.</p>
+            <p>The timeline follows playback. Transpose, simplify for beginners, or copy the list when you are done.</p>
           </article>
         </div>
       </section>
@@ -240,8 +246,8 @@
         <div>
           <h2 id="details-title">Powered by the Zaitun chord system</h2>
           <p>
-            Uploaded files and YouTube links are sent to the Zaitun chord system. The frontend expects
-            chord events as JSON.
+            Audio you send is analyzed by the Zaitun chord system. This page expects chord events
+            in a simple JSON shape like the example.
           </p>
         </div>
         <pre><code>{
@@ -253,5 +259,25 @@
 }</code></pre>
       </section>
     </main>
+
+    <footer class="site-footer">
+      <div class="site-footer-inner">
+        <div class="site-footer-brand">
+          <span class="brand-mark brand-mark-sm" aria-hidden="true">Z</span>
+          <div>
+            <strong class="site-footer-title">Zaitun Chords</strong>
+            <p class="site-footer-tagline">Find chords for any song with the Zaitun chord system.</p>
+          </div>
+        </div>
+        <nav class="site-footer-nav" aria-label="Footer">
+          <a href="#finder">Finder</a>
+          <a href="#results">Timeline</a>
+          <a href="chord-identifier.html">Identifier</a>
+          <a href="chord-progressions.html">Progressions</a>
+          <a href="#how-it-works">How it works</a>
+        </nav>
+      </div>
+      <p class="site-footer-legal">&copy; 2026 Zaitun</p>
+    </footer>
   </body>
 </html>

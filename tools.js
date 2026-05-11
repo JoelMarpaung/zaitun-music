@@ -655,16 +655,16 @@ function renderGuitarSVG(shape, label) {
     if (barreStrings.length > 1) {
       const x1 = startX + barreStrings[0] * stringGap;
       const x2 = startX + barreStrings[barreStrings.length - 1] * stringGap;
-      svg += `<rect x="${x1 - 5}" y="${startY + 8}" width="${x2 - x1 + 10}" height="10" rx="5" fill="#37c8a1"/>`;
+      svg += `<rect x="${x1 - 5}" y="${startY + 8}" width="${x2 - x1 + 10}" height="10" rx="5" fill="#22d3ee"/>`;
     }
   }
   frets.forEach((fret, string) => {
     const x = startX + string * stringGap;
-    if (fret === -1) svg += `<text x="${x}" y="${startY - 10}" fill="#ef6c5b" font-size="12" text-anchor="middle">x</text>`;
-    else if (fret === 0) svg += `<circle cx="${x}" cy="${startY - 12}" r="4" fill="none" stroke="#37c8a1" stroke-width="1.5"/>`;
+    if (fret === -1) svg += `<text x="${x}" y="${startY - 10}" fill="#fb7185" font-size="12" text-anchor="middle">x</text>`;
+    else if (fret === 0) svg += `<circle cx="${x}" cy="${startY - 12}" r="4" fill="none" stroke="#22d3ee" stroke-width="1.5"/>`;
     else if (fret !== barre) {
       const relative = fret - (startFret > 0 ? startFret - 1 : 0);
-      svg += `<circle cx="${x}" cy="${startY + (relative - 0.5) * fretGap}" r="6" fill="#37c8a1"/>`;
+      svg += `<circle cx="${x}" cy="${startY + (relative - 0.5) * fretGap}" r="6" fill="#22d3ee"/>`;
     }
   });
   ["E", "A", "D", "G", "B", "e"].forEach((string, index) => {
@@ -687,12 +687,12 @@ function renderKeyboardSVG(activeKeys, width = 228, height = 112, label = "") {
   let svg = `<svg class="keyboard-svg" width="${width}" height="${height}" viewBox="0 0 228 112" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${aria}">`;
   white.forEach((note, index) => {
     const active = activeKeys.includes(note);
-    svg += `<rect x="${10 + index * 30}" y="12" width="28" height="84" rx="4" fill="${active ? "#37c8a1" : "#f2f5f2"}" stroke="#101417"/>`;
-    svg += `<text x="${24 + index * 30}" y="88" fill="#0F0B1A" font-size="10" font-weight="800" text-anchor="middle">${note}</text>`;
+    svg += `<rect x="${10 + index * 30}" y="12" width="28" height="84" rx="4" fill="${active ? "#22d3ee" : "#eef2f7"}" stroke="#070910"/>`;
+    svg += `<text x="${24 + index * 30}" y="88" fill="#020617" font-size="10" font-weight="800" text-anchor="middle">${note}</text>`;
   });
   black.forEach((key) => {
     const active = activeKeys.includes(key.note);
-    svg += `<rect x="${key.left}" y="12" width="18" height="54" rx="3" fill="${active ? "#F59E0B" : "#0F0B1A"}" stroke="#0F0B1A"/>`;
+    svg += `<rect x="${key.left}" y="12" width="18" height="54" rx="3" fill="${active ? "#fbbf24" : "#020617"}" stroke="#020617"/>`;
   });
   svg += "</svg>";
   return svg;

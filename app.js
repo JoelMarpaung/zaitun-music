@@ -6,10 +6,12 @@ const NOTE_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", 
 const FLAT_MAP = { Db: "C#", Eb: "D#", Fb: "E", Gb: "F#", Ab: "G#", Bb: "A#", Cb: "B" };
 const BEGINNER_CHORDS = new Set(["C", "D", "E", "F", "G", "A", "Am", "Dm", "Em", "A7", "B7", "D7", "E7", "G7"]);
 const BEGINNER_7THS = new Set(["A7", "B7", "D7", "E7", "G7"]);
-const API_ENDPOINT = window.ZAITUN_CHORDS_ENDPOINT || "/api/chords/analyze";
+const API_ENDPOINT = "https://vineethwilson-swaram-chord-service.hf.space/analyze";
 const API_TIMEOUT_MS = 300_000;
 const SUPABASE_URL = "https://jfnccekkhffonkjkmxyf.supabase.co";
 const SUPABASE_KEY = "sb_publishable_KJA4VzMAjt2WVEEg0JKMfg_lDrABAZK";
+const MODEL_VERSION = "btc-v1";
+const BASE_URL = "https://ecoliving-tips.github.io";
 const PIPED_INSTANCES = [
   "https://api.piped.private.coffee",
   "https://pipedapi.wireway.ch",

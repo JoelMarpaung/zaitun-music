@@ -6,6 +6,8 @@ A static chord finder for the Zaitun chord system. It supports:
 - Synced playback timeline
 - Transpose controls
 - Beginner mode with capo suggestion
+- Browser-based chord identifier
+- Chord progression builder with playback
 - YouTube URL analysis through the same system, with browser-side fallback
 
 ## Run locally
@@ -18,15 +20,22 @@ python3 -m http.server 4173
 
 Then visit `http://localhost:4173`.
 
+Standalone tools:
+
+- `chord-identifier.html`
+- `chord-progressions.html`
+
 ## System config
 
-By default, the frontend calls the first-party Zaitun route:
+By default, the frontend calls the shared organization chord service:
 
 ```js
-API_ENDPOINT = "/api/chords/analyze"
+API_ENDPOINT = "https://vineethwilson-swaram-chord-service.hf.space/analyze"
 MAX_FILE_SIZE = 30 MB
 MAX_DURATION_SEC = 600
 API_TIMEOUT_MS = 300000
+MODEL_VERSION = "btc-v1"
+BASE_URL = "https://ecoliving-tips.github.io"
 ```
 
 The endpoint accepts `multipart/form-data` with either `file` or `youtube_url`, and returns:

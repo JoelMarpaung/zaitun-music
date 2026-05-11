@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+      name="description"
+      content="Free Zaitun chord progression builder. Pick any major or minor key, see diatonic chords, load common progressions, hear playback, and copy chord sequences."
+    >
+    <title>Zaitun Chords - Chord Progressions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="styles.css">
+    <script src="tools.js" defer></script>
+  </head>
+  <body class="swaram-tool-page">
+    <header>
+      <div class="container">
+        <div class="header-top">
+          <div class="header-content">
+            <h1><a href="index.html">Zaitun</a></h1>
+            <p class="tagline">Find Chords for Any Song - Free AI Chord Finder <span class="header-badge">Music Tools</span></p>
+          </div>
+          <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false" type="button">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+          </button>
+        </div>
+        <nav class="mobile-nav" aria-label="Main navigation">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#finder">Chord Finder</a></li>
+            <li><a href="chord-identifier.html">Chord Identifier</a></li>
+            <li><a href="chord-progressions.html" aria-current="page">Progressions</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="prog-hero">
+        <div class="container">
+          <h2>Chord Progression Builder</h2>
+          <p>Pick a key, see which chords fit, and build your progression.</p>
+          <div class="key-selector-wrap">
+            <label for="key-selector">Select Key:</label>
+            <select id="key-selector" class="key-selector"></select>
+          </div>
+        </div>
+      </section>
+
+      <section class="prog-palette-section">
+        <div class="container">
+          <h3>Diatonic Chords</h3>
+          <p class="section-hint">Click a chord to add it to your progression. Click the chord name to see diagrams.</p>
+          <div id="diatonic-palette" class="diatonic-grid"></div>
+        </div>
+      </section>
+
+      <section class="prog-presets-section">
+        <div class="container">
+          <h3>Common Progressions</h3>
+          <div id="preset-buttons" class="preset-strip"></div>
+        </div>
+      </section>
+
+      <section class="prog-timeline-section">
+        <div class="container">
+          <h3>Your Progression</h3>
+          <p id="prog-empty" class="section-hint">Click chords above or pick a preset to start building.</p>
+          <div id="progression-timeline" class="progression-timeline"></div>
+          <div id="progression-controls" class="progression-controls" hidden>
+            <div class="bpm-control">
+              <button id="bpm-down" class="btn btn-sm" type="button" aria-label="Decrease BPM">-</button>
+              <span id="bpm-display">100 BPM</span>
+              <button id="bpm-up" class="btn btn-sm" type="button" aria-label="Increase BPM">+</button>
+            </div>
+            <div class="prog-actions">
+              <button id="prog-play-btn" class="btn btn-primary" type="button">Play</button>
+              <button id="prog-copy-btn" class="btn btn-secondary" type="button">Copy</button>
+              <button id="prog-clear-btn" class="btn btn-outline" type="button">Clear</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="prog-how-section">
+        <div class="container">
+          <h2>How It Works</h2>
+          <div class="how-grid">
+            <div class="how-step">
+              <div class="step-number">1</div>
+              <h3>Choose a Key</h3>
+              <p>Select any major or minor key from the dropdown. You'll see all seven diatonic chords that naturally fit together.</p>
+            </div>
+            <div class="how-step">
+              <div class="step-number">2</div>
+              <h3>Build Your Progression</h3>
+              <p>Click chords to add them to your progression, or pick a common preset like the classic I-V-vi-IV pop pattern.</p>
+            </div>
+            <div class="how-step">
+              <div class="step-number">3</div>
+              <h3>Listen &amp; Share</h3>
+              <p>Hit Play to hear your progression with adjustable BPM. Copy the chord sequence for bandmates or writing notes.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="prog-faq-section">
+        <div class="container">
+          <h2>Frequently Asked Questions</h2>
+          <div class="faq-grid">
+            <div class="faq-item">
+              <h3>What is a chord progression?</h3>
+              <p>A chord progression is a sequence of chords played in order. Common progressions like I-V-vi-IV are the foundation of many songs.</p>
+            </div>
+            <div class="faq-item">
+              <h3>What are diatonic chords?</h3>
+              <p>Diatonic chords are the seven chords naturally formed from a major or minor scale. They usually sound good together in the same key.</p>
+            </div>
+            <div class="faq-item">
+              <h3>What is the most common progression?</h3>
+              <p>The I-V-vi-IV progression is one of the most common patterns in pop, rock, worship, and many other styles.</p>
+            </div>
+            <div class="faq-item">
+              <h3>How do I use this progression builder?</h3>
+              <p>Select a key, click diatonic chords to build your sequence, use presets for common patterns, then play or copy the result.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="prog-keys-section">
+        <div class="container">
+          <h2>Browse Chord Progressions by Key</h2>
+          <div class="keys-grid">
+            <div class="keys-column">
+              <h4>Major Keys</h4>
+              <ul class="key-links">
+                <li><a href="#key-selector">C Major</a></li>
+                <li><a href="#key-selector">Db Major</a></li>
+                <li><a href="#key-selector">D Major</a></li>
+                <li><a href="#key-selector">Eb Major</a></li>
+                <li><a href="#key-selector">E Major</a></li>
+                <li><a href="#key-selector">F Major</a></li>
+                <li><a href="#key-selector">Gb Major</a></li>
+                <li><a href="#key-selector">G Major</a></li>
+                <li><a href="#key-selector">Ab Major</a></li>
+                <li><a href="#key-selector">A Major</a></li>
+                <li><a href="#key-selector">Bb Major</a></li>
+                <li><a href="#key-selector">B Major</a></li>
+              </ul>
+            </div>
+            <div class="keys-column">
+              <h4>Minor Keys</h4>
+              <ul class="key-links">
+                <li><a href="#key-selector">C Minor</a></li>
+                <li><a href="#key-selector">Db Minor</a></li>
+                <li><a href="#key-selector">D Minor</a></li>
+                <li><a href="#key-selector">Eb Minor</a></li>
+                <li><a href="#key-selector">E Minor</a></li>
+                <li><a href="#key-selector">F Minor</a></li>
+                <li><a href="#key-selector">Gb Minor</a></li>
+                <li><a href="#key-selector">G Minor</a></li>
+                <li><a href="#key-selector">Ab Minor</a></li>
+                <li><a href="#key-selector">A Minor</a></li>
+                <li><a href="#key-selector">Bb Minor</a></li>
+                <li><a href="#key-selector">B Minor</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="prog-cta-section">
+        <div class="container">
+          <div class="cta-card">
+            <h3>Hear Real Chords from Any Song</h3>
+            <p>Upload an audio file or paste a YouTube link and let Zaitun detect the exact chords for your song.</p>
+            <a href="index.html#finder" class="btn btn-primary btn-lg">Try Chord Finder</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-logo">
+            <h3>Zaitun</h3>
+            <p>Find Chords for Any Song - Free AI Chord Finder</p>
+          </div>
+          <div class="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="index.html#finder">Chord Finder</a></li>
+              <li><a href="chord-identifier.html">Chord Identifier</a></li>
+              <li><a href="chord-progressions.html">Progressions</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2026 Zaitun. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

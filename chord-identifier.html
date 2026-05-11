@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+      name="description"
+      content="Free Zaitun chord identifier. Play a chord near your microphone and identify the chord name, notes, confidence, guitar diagram, and keyboard diagram in the browser."
+    >
+    <title>Zaitun Chords - Chord Identifier</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="styles.css">
+    <script src="tools.js" defer></script>
+  </head>
+  <body class="swaram-tool-page">
+    <header>
+      <div class="container">
+        <div class="header-top">
+          <div class="header-content">
+            <h1><a href="index.html">Zaitun</a></h1>
+            <p class="tagline">Find Chords for Any Song - Free AI Chord Finder <span class="header-badge">Music Tools</span></p>
+          </div>
+          <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false" type="button">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+          </button>
+        </div>
+        <nav class="mobile-nav" aria-label="Main navigation">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#finder">Chord Finder</a></li>
+            <li><a href="chord-identifier.html" aria-current="page">Chord Identifier</a></li>
+            <li><a href="chord-progressions.html">Progressions</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="generate-header">
+        <div class="container">
+          <h2>What Chord Am I Playing?</h2>
+          <p>Play a chord on your guitar or piano - we'll identify it instantly.</p>
+        </div>
+      </section>
+
+      <section class="identifier-section">
+        <div class="container">
+          <div class="identifier-card">
+            <div class="identifier-mic-area">
+              <button type="button" class="identifier-mic-btn" id="mic-btn" aria-label="Start listening">
+                <svg class="mic-icon" id="mic-icon-off" width="48" height="48" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                  <line x1="12" y1="19" x2="12" y2="23"></line>
+                  <line x1="8" y1="23" x2="16" y2="23"></line>
+                </svg>
+                <svg class="mic-icon mic-icon-active" id="mic-icon-on" width="48" height="48" viewBox="0 0 24 24" aria-hidden="true" hidden>
+                  <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                  <line x1="12" y1="19" x2="12" y2="23"></line>
+                  <line x1="8" y1="23" x2="16" y2="23"></line>
+                </svg>
+              </button>
+              <p class="mic-status" id="mic-status">Tap to start listening</p>
+            </div>
+
+            <div class="identifier-volume" id="volume-meter" hidden>
+              <div class="volume-bar-bg">
+                <div class="volume-bar-fill" id="volume-fill"></div>
+              </div>
+              <span class="volume-label">Volume</span>
+            </div>
+
+            <div class="identifier-result" id="result-area" hidden aria-live="polite">
+              <div class="identifier-chord-name" id="detected-chord">-</div>
+              <div class="identifier-chord-full" id="detected-chord-full">Play a clear chord</div>
+              <div class="identifier-notes" id="detected-notes"></div>
+              <div class="identifier-confidence">
+                <div class="confidence-bar-bg">
+                  <div class="confidence-bar-fill" id="confidence-fill"></div>
+                </div>
+                <span class="confidence-label" id="confidence-label">0%</span>
+              </div>
+            </div>
+
+            <div class="identifier-diagrams" id="diagram-area" hidden>
+              <div class="identifier-diagram-tabs">
+                <button type="button" class="identifier-tab active" data-tab="guitar">Guitar</button>
+                <button type="button" class="identifier-tab" data-tab="keyboard">Keyboard</button>
+              </div>
+              <div class="identifier-diagram-content" id="diagram-guitar"></div>
+              <div class="identifier-diagram-content" id="diagram-keyboard" hidden></div>
+            </div>
+
+            <div class="identifier-history" id="history-area" hidden>
+              <div class="history-header">
+                <h4>Chord Progression</h4>
+                <div class="history-actions">
+                  <button type="button" class="history-action-btn" id="copy-progression-btn" title="Copy progression" aria-label="Copy progression">
+                    <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+                      <rect x="9" y="9" width="13" height="13" rx="2"></rect>
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                  </button>
+                  <button type="button" class="history-action-btn" id="clear-progression-btn" title="Clear" aria-label="Clear progression">
+                    <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M18 6L6 18M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="history-chips" id="history-chips"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="how-it-works-section">
+        <div class="container">
+          <h2>How the Chord Identifier Works</h2>
+          <div class="features-grid">
+            <article class="feature-card">
+              <div class="feature-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                </svg>
+              </div>
+              <h3>Play a Chord</h3>
+              <p>Tap the microphone button and play a chord on your guitar, piano, or ukulele.</p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+              </div>
+              <h3>Instant Detection</h3>
+              <p>The browser analyzes frequencies in real time and matches them to chord patterns.</p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M9 18V5l12-2v13"></path>
+                  <circle cx="6" cy="18" r="3"></circle>
+                  <circle cx="18" cy="16" r="3"></circle>
+                </svg>
+              </div>
+              <h3>See Name &amp; Diagrams</h3>
+              <p>Get the chord name, notes, and guitar or keyboard diagrams in the same panel.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="how-it-works-section">
+        <div class="container">
+          <h2>Why Use Our Chord Identifier?</h2>
+          <div class="features-grid">
+            <article class="feature-card">
+              <div class="feature-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+              </div>
+              <h3>100% Private</h3>
+              <p>Microphone analysis runs locally in the browser, so practice audio stays on your device.</p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" aria-hidden="true">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                </svg>
+              </div>
+              <h3>Real-Time Results</h3>
+              <p>Play a clean chord and see the detected name, notes, and confidence while you practice.</p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M2 12h20"></path>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+              </div>
+              <h3>Any Instrument</h3>
+              <p>Works best with clear pitched chords from guitar, piano, ukulele, keyboard, or mandolin.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-section">
+        <div class="container">
+          <h2>Want Chords for a Full Song?</h2>
+          <div class="about-content">
+            <p>Upload any audio file or paste a YouTube link and Zaitun will prepare a playable chord timeline for the entire song.</p>
+            <a href="index.html#finder" class="btn">Try Chord Finder</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="faq-section">
+        <div class="container">
+          <h2>Frequently Asked Questions</h2>
+          <div class="faq-grid">
+            <div class="faq-item">
+              <h3>How does the chord identifier work?</h3>
+              <p>It listens through your microphone, turns the sound into frequency data, identifies likely notes, and matches those notes to known chord formulas.</p>
+            </div>
+            <div class="faq-item">
+              <h3>What instruments does it work with?</h3>
+              <p>Any pitched instrument can work. It is most accurate with one instrument playing a clear sustained chord in a quiet room.</p>
+            </div>
+            <div class="faq-item">
+              <h3>Does it record my audio?</h3>
+              <p>No. The chord identifier uses the Web Audio API locally in your browser and does not upload microphone audio.</p>
+            </div>
+            <div class="faq-item">
+              <h3>How many chords can it recognize?</h3>
+              <p>It checks common major, minor, seventh, suspended, diminished, augmented, sixth, ninth, and added-note chord types across all keys.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-logo">
+            <h3>Zaitun</h3>
+            <p>Find Chords for Any Song - Free AI Chord Finder</p>
+          </div>
+          <div class="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="index.html#finder">Chord Finder</a></li>
+              <li><a href="chord-identifier.html">Chord Identifier</a></li>
+              <li><a href="chord-progressions.html">Progressions</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2026 Zaitun. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

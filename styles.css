@@ -1804,9 +1804,13 @@ h1 {
 }
 
 #progress-detail,
-#analysis-summary,
 .error-section p {
   color: var(--muted);
+}
+
+#analysis-summary,
+.summary-metrics > div:first-child {
+  display: none !important;
 }
 
 .error-section {
@@ -1828,7 +1832,7 @@ h1 {
 
 .summary-metrics {
   display: grid;
-  grid-template-columns: repeat(3, minmax(74px, 1fr));
+  grid-template-columns: repeat(2, minmax(74px, 1fr));
   gap: 8px;
 }
 
